@@ -1,6 +1,6 @@
 'use strict';
 const getClientEnvironment = require("./env");
-const readDir = require("./list-dir");
+const listDir = require("./list-dir");
 const pkgFiles = require("./pkg-files");
 
 /**
@@ -13,12 +13,10 @@ function packageTeamsApp(src, manifest = "manifest") {
   if (!manifest.endsWith(".zip")) {
     manifest += ".zip"
   }
-  const list = readDir(src);
+  const list = listDir(src);
   const len = src.endsWith("/") || src.endsWith("\\") ? src.length : src.length + 1;
   pkgFiles(list, len, manifest, env);
   console.log("Package manifest:", src, "==>", manifest);
 }
 
 module.exports = packageTeamsApp;
-
-packageTeamsApp("test-manifest")
