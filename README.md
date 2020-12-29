@@ -2,17 +2,17 @@
 
 Package Microsoft Teams App Manifest
 
-## usage
+## Usage
 
 ```sh
-npx package-teams-app [manifestfolder] [output folder]
+npx package-teams-app [manifestFolder] [outputFolder]
 ```
 
-You can run `npm i package-teams-app -g` or `yarn global add package-teams-app` to install it global.
+You can run `npm i package-teams-app -g` or `yarn global add package-teams-app` to install it globally.
 
-## details
+## Details
 
-### cli options
+### CLI options
 
 #### package
 
@@ -46,7 +46,7 @@ package-teams-app manifest build/download.zip
 package-teams-app --init manifest
 ```
 
-### Env order:
+### env order:
 
 - `.env.${NODE_ENV}.local`
 - `.env.local`

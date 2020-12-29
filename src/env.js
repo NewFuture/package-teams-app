@@ -1,7 +1,11 @@
 'use strict';
 const fs = require('fs');
+const promisify = require('util').promisify;
+
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');
+
+const fsAccess = promisify(fs.access);
 
 function getClientEnvironment() {
   const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -12,13 +16,16 @@ function getClientEnvironment() {
     '.env',
   ].filter(Boolean);
 
-  dotenvFiles.forEach(dotenvFile => {
-    if (fs.existsSync(dotenvFile)) {
+  const promise = dotenvFiles
+    .map(dotenvFile => fsAccess(dotenvFile).then(() => {
       console.log("load env:", dotenvFile);
       dotenvExpand(dotenv.config({ path: dotenvFile, }));
-    }
-  });
-  return Object.keys(process.env)
+    }, () => { })).reduce((promises, p) => {
+      // run each promise
+      return p ? promises.then(() => Promise.resolve(p)) : promises;
+    }, Promise.resolve());
+
+  return promise.then(() => Object.keys(process.env)
     .reduce(
       (env, key) => {
         env[key] = process.env[key];
@@ -29,7 +36,7 @@ function getClientEnvironment() {
         // Most importantly, it switches React into the correct mode.
         NODE_ENV: NODE_ENV,
       }
-    );
+    ));
 }
 
 module.exports = getClientEnvironment;

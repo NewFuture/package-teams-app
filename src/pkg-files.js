@@ -1,7 +1,14 @@
 'use strict';
+
+
 const fs = require('fs');
+const promisify = require('util').promisify;
 const AdmZip = require("adm-zip");
+const jsonschema = require("jsonschema");
 const replace = require("./replace");
+
+
+const readFile = promisify(fs.readFile);
 
 /**
  * 
@@ -9,21 +16,21 @@ const replace = require("./replace");
  * @param {number} prefixlen 
  * @param {string} to 
  * @param {object} env
+ * @returns {Promise<void>}
  */
-function pkgFiles(files, prefixlen, to ,env) {
+function pkgFiles(files, prefixlen, to, env) {
   const zip = new AdmZip();
-  files.forEach(f => {
+  const promises = files.map(f => {
     const zipFileName = f.substr(prefixlen || 0);
-    // console.log(zipFileName);
     if (f && f.endsWith(".json")) {
-      const data = fs.readFileSync(f);
-      const replaceData = replace(data,env);
-      zip.addFile(zipFileName, replaceData);
+      return readFile(f)
+        .then(buffer => replace(buffer, env))
+        .then(buffer => zip.addFile(zipFileName, buffer))
     } else {
-      zip.addLocalFile(f, "", zipFileName);
+      return Promise.resolve(zip.addLocalFile(f, "", zipFileName));
     }
   })
-  zip.writeZip(to)
+  return Promise.all(promises).then(() => zip.writeZip(to));
 }
 
 module.exports = pkgFiles;

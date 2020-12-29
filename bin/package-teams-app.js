@@ -41,13 +41,12 @@ if (args.length == 0 || args[0] == "--help" || args[0] == "-h") {
 } else if (args[0] == "--init" || args[0] == "-i") {
   const initDir = args[1] || defaultDir
   console.log("init", initDir);
-  initTemplate(initDir);
-  console.log("Template manifest files copy to", initDir);
+  initTemplate(initDir).then(() => console.log("Template manifest files copy to", initDir));
 } else if (!fs.existsSync(args[0])) {
   console.error(args[0], "not exists!" + helpMessage);
   process.exit(1);
 } else {
   const src = args[0];
-  const outfile = packageTeamsApp(src, args[1]);
-  console.log("Package manifest:", src, "==>", outfile);
+  packageTeamsApp(src, args[1])
+    .then(outfile => console.log("Package manifest:", src, "==>", outfile));
 }

@@ -1,26 +1,44 @@
 'use strict';
 const fs = require('fs');
 const path = require("path");
+const promisify = require('util').promisify;
+
+const readdir = promisify(fs.readdir);
+const stat = promisify(fs.stat);
+
+
+/**
+ * 
+ * @param {string} filename 
+ */
+function readDirAndFile(filename) {
+  return stat(filename).then(stats => {
+    if (stats.isFile()) {
+      return filename;
+    } else if (stats.isDirectory()) {
+      return listDir(filename);
+    } else {
+      console.warn("unkown file", filename);
+    }
+    /**
+     * @type string[]
+     */
+    const res = [];
+    return res;
+  })
+}
 
 /**
  * 
  * @param {string} dir 
- * @returns {string[]}
+ * @returns {Promise<string[]>}
  */
-function readDir(dir) {
-  const files = fs.readdirSync(dir);
-  return files.reduce((pre, f) => {
-    const filename = path.join(dir, f);
-    const stats = fs.statSync(filename);
-    if (stats.isFile()) {
-      pre.push(filename)
-    } else if (stats.isDirectory()) {
-      return pre.concat(readDir(filename));
-    } else {
-      console.warn("unkown file", filename);
-    }
-    return pre;
-  }, []);
+function listDir(dir) {
+  return readdir(dir)
+    .then(files => files.map((f) => path.join(dir, f)))
+    .then(fileNames => fileNames.map(readDirAndFile))
+    .then(fileList => Promise.all(fileList))
+    .then(files => files.reduce((pre, f) => pre.concat(f), []))
 }
 
-module.exports = readDir;
+module.exports = listDir;
