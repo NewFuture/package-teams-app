@@ -6,7 +6,8 @@ const pkgFiles = require("./pkg-files");
 /**
  * 
  * @param {string} src 
- * @param {string} manifest 
+ * @param {string} manifest
+ * @returns {string}
  */
 function packageTeamsApp(src, manifest = "manifest") {
   const env = getClientEnvironment();
@@ -16,7 +17,7 @@ function packageTeamsApp(src, manifest = "manifest") {
   const list = listDir(src);
   const len = src.endsWith("/") || src.endsWith("\\") ? src.length : src.length + 1;
   pkgFiles(list, len, manifest, env);
-  console.log("Package manifest:", src, "==>", manifest);
+  return manifest
 }
 
 module.exports = packageTeamsApp;

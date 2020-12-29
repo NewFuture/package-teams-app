@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Package Microsoft Teams App Manifest",
   "main": "src/index.js",
+  "bin": "./bin/package-teams-app.js",
   "scripts": {
-    "test": "node src/index.js"
+    "test": "node bin/package-teams-app.js"
   },
   "repository": {
     "type": "git",
