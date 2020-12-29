@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "bin": "./bin/package-teams-app.js",
   "scripts": {
-    "test": "node bin/package-teams-app.js"
+    "test": "node bin/package-teams-app.js",
+    "postversion": "npm publish && git push --follow-tags"
   },
   "repository": {
     "type": "git",

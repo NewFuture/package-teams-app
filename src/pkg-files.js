@@ -4,7 +4,6 @@
 const fs = require('fs');
 const promisify = require('util').promisify;
 const AdmZip = require("adm-zip");
-const jsonschema = require("jsonschema");
 const replace = require("./replace");
 
 
@@ -30,6 +29,8 @@ function pkgFiles(files, prefixlen, to, env) {
       return Promise.resolve(zip.addLocalFile(f, "", zipFileName));
     }
   })
+
+  zip.addZipComment("test comment");
   return Promise.all(promises).then(() => zip.writeZip(to));
 }
 
