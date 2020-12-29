@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.8/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.8",
+  "version": "${npm_package_version}",
+  "id": "${APP_GUID}",
+  "packageName": "${PACKAGE_NAME}",
+  "developer": {
+    "name": "test",
+    "websiteUrl": "${WEBSITE_URL}",
+    "privacyUrl": "${WEBSITE_URL}",
+    "termsOfUseUrl": "${WEBSITE_URL}"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "test-teams-app",
+    "full": ""
+  },
+  "description": {
+    "short": "shor desc for this app",
+    "full": "full description"
+  },
+  "accentColor": "#FFFFFF",
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "${WEBSITE_URL}"
+  ],
+  "localizationInfo": {
+    "defaultLanguageTag": "en-us",
+    "additionalLanguages": [
+      {
+        "languageTag": "zh",
+        "file": "zh.json"
+      }
+    ]
+  }
+}

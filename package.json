@@ -1,14 +1,14 @@
 {
-  "name": "teams-app-package",
-  "version": "0.0.1",
+  "name": "package-teams-app",
+  "version": "1.0.0",
   "description": "Package Microsoft Teams App Manifest",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node src/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NewFuture/teams-app-package.git"
+    "url": "git+https://github.com/NewFuture/package-teams-app.git"
   },
   "keywords": [
     "teams",
@@ -17,9 +17,9 @@
   "author": "NewFuture",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NewFuture/teams-app-package/issues"
+    "url": "https://github.com/NewFuture/package-teams-app/issues"
   },
-  "homepage": "https://github.com/NewFuture/teams-app-package#readme",
+  "homepage": "https://github.com/NewFuture/package-teams-app#readme",
   "dependencies": {
     "adm-zip": "^0.5.1",
     "dotenv": "^8.2.0",
