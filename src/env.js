@@ -7,6 +7,11 @@ const dotenvExpand = require('dotenv-expand');
 
 const fsAccess = promisify(fs.access);
 
+function loadEnv(dotenvFile) {
+  console.log("load env:", dotenvFile);
+  dotenvExpand(dotenv.config({ path: dotenvFile, }));
+}
+
 function getClientEnvironment() {
   const NODE_ENV = process.env.NODE_ENV || 'development';
   const dotenvFiles = [
@@ -17,13 +22,8 @@ function getClientEnvironment() {
   ].filter(Boolean);
 
   const promise = dotenvFiles
-    .map(dotenvFile => fsAccess(dotenvFile).then(() => {
-      console.log("load env:", dotenvFile);
-      dotenvExpand(dotenv.config({ path: dotenvFile, }));
-    }, () => { })).reduce((promises, p) => {
-      // run each promise
-      return p ? promises.then(() => Promise.resolve(p)) : promises;
-    }, Promise.resolve());
+    .map(dotenvFile => fsAccess(dotenvFile).then(() => dotenvFile))
+    .reduce((promises, p) => promises.then(() => p.then(loadEnv, () => { })), Promise.resolve());
 
   return promise.then(() => Object.keys(process.env)
     .reduce(
