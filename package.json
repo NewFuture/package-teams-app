@@ -1,6 +1,6 @@
 {
   "name": "package-teams-app",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Package Microsoft Teams App Manifest",
   "main": "src/index.js",
   "bin": "./bin/package-teams-app.js",
