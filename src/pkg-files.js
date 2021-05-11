@@ -2,12 +2,14 @@
 
 
 const fs = require('fs');
+const path = require('path');
 const promisify = require('util').promisify;
 const AdmZip = require("adm-zip");
 const replace = require("./replace");
 
 
 const readFile = promisify(fs.readFile);
+const mkdir = promisify(fs.mkdir)
 
 /**
  * 
@@ -29,8 +31,8 @@ function pkgFiles(files, prefixlen, to, env) {
       return Promise.resolve(zip.addLocalFile(f, "", zipFileName));
     }
   })
-
-  zip.addZipComment("test comment");
+  promises.push(mkdir(path.dirname(to), { recursive: true }))
+  zip.addZipComment((env.npm_package_name || env.PACKAGE_NAME) + " manifest was packaged at " + Date() + " by [package-teams-app].");
   return Promise.all(promises).then(() => zip.writeZip(to));
 }
 
