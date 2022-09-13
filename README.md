@@ -5,7 +5,7 @@ Package Microsoft Teams App Manifest
 ## Features
 
 - [x] Package all files to Zip;
-- [x] Replace environment variables in `.json` and support `.env`;
+- [x] Replace environment variables `${VAR}` in `.json` and support `.env`;
 - [x] Generate template manifest;
 - [ ] Validate JSON Schema [todo];
 
