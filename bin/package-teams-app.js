@@ -48,5 +48,9 @@ if (args.length == 0 || args[0] == "--help" || args[0] == "-h") {
   const packageTeamsApp = require("../src/index");
   const src = args[0];
   packageTeamsApp(src, args[1])
-    .then(outfile => console.log("Package manifest:", src, "==>", outfile));
+    .then(outfile => console.log("Package manifest:", src, "==>", outfile))
+    .catch(err=>{
+      console.error(err);
+      process.exit(1);
+    });
 }

@@ -1,5 +1,5 @@
 {
-    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.8/MicrosoftTeams.Localization.schema.json",
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.14/MicrosoftTeams.Localization.schema.json",
     "name.short": "${PACKAGE_NAME}",
     "name.full": "全名",
     "description.short": "简短说明",

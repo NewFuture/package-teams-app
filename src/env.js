@@ -3,7 +3,7 @@ const fs = require('fs');
 const promisify = require('util').promisify;
 
 const dotenv = require('dotenv');
-const dotenvExpand = require('dotenv-expand');
+const dotenvExpand = require('dotenv-expand').expand;
 
 const fsAccess = promisify(fs.access);
 
