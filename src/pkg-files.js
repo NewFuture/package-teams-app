@@ -16,16 +16,16 @@ const mkdir = promisify(fs.mkdir)
 /**
  * 
  * @param {string[]}  files 
- * @param {number} prefixlen 
+ * @param {string} prefix 
  * @param {string} to 
  * @param {object} env
  * @returns {Promise<void>}
  */
-function pkgFiles(files, prefixlen, to, env) {
+function pkgFiles(files, prefix, to, env) {
   const zip = new AdmZip();
   let invalid = false;
   const promises = files.map(f => {
-    const zipFileName = f.substr(prefixlen || 0);
+    const zipFileName = path.relative(prefix, f);
     if (f && f.endsWith(".json")) {
       return readFile(f)
         .then(buffer => replace(buffer, env))

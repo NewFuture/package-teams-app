@@ -18,8 +18,7 @@ function packageTeamsApp(src, manifest = "") {
   }
   return Promise.all([getClientEnvironment(), listDir(src)])
     .then((res) => {
-      const len = src.endsWith("/") || src.endsWith("\\") ? src.length : src.length + 1;
-      return pkgFiles(res[1], len, manifest, res[0]);
+      return pkgFiles(res[1], src, manifest, res[0]);
     }).then(() => manifest);
 }
 
