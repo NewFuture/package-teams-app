@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/NewFuture/package-teams-app#readme",
   "dependencies": {
-    "adm-zip": "^0.5.9",
+    "adm-zip": "^0.6.0",
     "dotenv": "^16.0.2",
     "dotenv-expand": "^9.0.0",
     "jsonschema": "^1.4.1"
